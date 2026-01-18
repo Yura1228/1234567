@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Маршрутный лист</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+  }
+  h1, h2 {
+    text-align: center;
+  }
+  .section {
+    margin-top: 20px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    box-sizing: border-box;
+  }
+  button {
+    margin: 20px auto;
+    display: block;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+  @media(max-width: 600px){
+    body {
+      margin: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Маршрутный лист</h1>
+
+<div class="section">
+  <h2>I. Сведения о бригаде</h2>
+  <label for="date1">Дата поездки:</label>
+  <input type="date" id="date1" min="2020-01-01" max="2050-12-31" />
+
+  <label for="engineerName">Ф.И.О. машиниста:</label>
+  <input type="text" id="engineerName" placeholder="Введите Ф.И.О. машиниста" />
+
+  <label for="assistantName">Ф.И.О. помощник машиниста:</label>
+  <input type="text" id="assistantName" placeholder="Введите Ф.И.О. помощник машиниста" />
+
+  <label for="instructorName">Ф.И.О. машиниста инструктора:</label>
+  <input type="text" id="instructorName" placeholder="Введите Ф.И.О. машиниста инструктора" />
+
+  <label>Время явки на работу - начало и окончание:</label>
+  <input type="time" id="startWorkTime" value="08:00" />
+  <input type="time" id="endWorkTime" value="08:00" />
+
+  <label for="medWorker">Ф.И.О. Мед.работника:</label>
+  <input type="text" id="medWorker" placeholder="Введите Ф.И.О. Мед.работника" />
+
+  <label for="medPassDate">Дата и время прохождения медкомиссии:</label>
+  <input type="date" id="medPassDate" min="2020-01-01" max="2050-12-31" />
+
+  <label>Предрейсовый:</label>
+  <input type="time" id="preTripTime" value="08:00" />
+
+  <label>Послерейсовый:</label>
+  <input type="time" id="postTripTime" value="08:00" />
+</div>
+
+<div class="section">
+  <h2>II. Сведения о поездке</h2>
+  <label for="routeNumber">Номер маршрутного листа:</label>
+  <input type="text" id="routeNumber" placeholder="Введите номер маршрута" />
+
+  <label for="cassetteNumber">Номер касеты регистрации:</label>
+  <input type="text" id="cassetteNumber" placeholder="Введите номер касеты регистрации" />
+
+  <label for="pBType">Тип ПБ:</label>
+  <input type="text" id="pBType" placeholder="Введите тип ПБ" />
+
+  <label>Время включения - выключения ПБ:</label>
+  <input type="time" id="pBStartTime" value="08:00" />
+  <input type="time" id="pBEndTime" value="08:00" />
+
+  <label for="ekVersion">Версия ЭК:</label>
+  <input type="number" id="ekVersion" placeholder="Введите версию ЭК" />
+</div>
+
+<button onclick="submitForm()">Заполнить маршрутный лист</button>
+
+<script>
+function submitForm() {
+  // собираем данные из формы
+  const data = {
+    date1: document.getElementById('date1').value || 'не указана',
+    engineerName: document.getElementById('engineerName').value || 'не указано',
+    assistantName: document.getElementById('assistantName').value || 'не указано',
+    instructorName: document.getElementById('instructorName').value || 'не указано',
+    startWorkTime: document.getElementById('startWorkTime').value,
+    endWorkTime: document.getElementById('endWorkTime').value,
+    medWorker: document.getElementById('medWorker').value || 'не указано',
+    medPassDate: document.getElementById('medPassDate').value || 'не указана',
+    preTripTime: document.getElementById('preTripTime').value,
+    postTripTime: document.getElementById('postTripTime').value,
+    routeNumber: document.getElementById('routeNumber').value || 'не указано',
+    cassetteNumber: document.getElementById('cassetteNumber').value || 'не указано',
+    pBType: document.getElementById('pBType').value || 'не указано',
+    pBStartTime: document.getElementById('pBStartTime').value,
+    pBEndTime: document.getElementById('pBEndTime').value,
+    ekVersion: document.getElementById('ekVersion').value || 'не указано'
+  };
+
+  // формируем сообщение
+  const message = `
+I. Сведения о бригаде
+Дата поездки: ${data.date1}
+Ф.И.О. машиниста: ${data.engineerName}
+Ф.И.О. помощник машиниста: ${data.assistantName}
+Ф.И.О. машиниста инструктора: ${data.instructorName}
+Время явки на работу - начало: ${data.startWorkTime}
+Время явки на работу - окончание: ${data.endWorkTime}
+Ф.И.О. Мед.работника: ${data.medWorker}
+Дата прохождения медкомиссии: ${data.medPassDate}
+Время прохождения медкомиссии
+Предрейсовый: ${data.preTripTime}
+Послерейсовый: ${data.postTripTime}
+
+II. Сведения о поездке
+Номер маршрутного листа: ${data.routeNumber}
+Номер касеты регистрации: ${data.cassetteNumber}
+Тип ПБ: ${data.pBType}
+Время включения: ${data.pBStartTime}
+Время выключения: ${data.pBEndTime}
+Версия ЭК: ${data.ekVersion}
+  `;
+
+  alert("Маршрутный лист:\n" + message);
+}
+</script>
+
+</body>
+</html>
